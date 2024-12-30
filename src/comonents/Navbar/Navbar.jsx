@@ -26,20 +26,65 @@ const Navbar = () => {
   }, []);
   const links = (
     <>
-        <li>
+      <li>
         <NavLink
           className={({ isActive }) =>
             isActive
               ? "g-card px-2 py-1 font-semibold text-blue-600"
-              : "font-bold text-sky-50 hover:text-blue-300"
+              : "font-bold text-sky-950 hover:text-blue-300"
           }
           to="/"
         >
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? "g-card px-2 py-1 font-semibold text-blue-600"
+              : "font-bold text-sky-950 hover:text-blue-300"
+          }
+          to="/services"
+        >
+          Services
+        </NavLink>
+      </li>
+      <li className="relative group">
+      <NavLink
+        className={({ isActive }) =>
+          isActive
+            ? "g-card px-2 py-1 font-semibold text-blue-600"
+            : "font-bold text-sky-950 hover:text-blue-300"
+        }
+        to="/dashboard"
+      >
+        Dashboard
+      </NavLink>
+      {/* Dropdown Menu */}
+      <ul className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-1 py-2 rounded-lg z-10 w-40">
+        <li className="px-4 py-2 hover:bg-blue-100">
+          <NavLink
+            to="/addServices"
+            className="block text-gray-700 hover:text-blue-500"
+          >
+           Add Services
+          </NavLink>
+        </li>
+        <li className="px-4 py-2 hover:bg-blue-100">
+          <NavLink
+            to="/manageServices"
+            className="block text-gray-700 hover:text-blue-500"
+          >
+            Manage Services
+          </NavLink>
+        </li>
+       
+      </ul>
+    </li>
+      
     </>
-  )
+  );
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -96,7 +141,7 @@ const Navbar = () => {
                   display: none;
                 }
               `}</style>
-               {links}
+                {links}
               </ul>
             </div>
 
@@ -118,7 +163,7 @@ const Navbar = () => {
 
         {/* Navbar Center (with fixed <ul>) */}
         <div className="navbar-center max-sm:hidden">
-          <ul className="text-lg menu menu-horizontal px-1 flex justify-center items-center space-x-6 fixed top-0 left-1/2 transform -translate-x-1/2 bg-background backdrop-blur-lg bg-opacity-75 py-3 rounded-full  shadow-bottom-shadow border-b-2 border-gray-200">
+          <ul className="text-lg  menu-horizontal px-10 flex justify-center items-center space-x-6 fixed top-0 left-1/2 transform -translate-x-1/2 bg-background backdrop-blur-lg bg-opacity-75 py-3 rounded-full  shadow-bottom-shadow border-b-2 border-gray-200">
             {links}
           </ul>
         </div>
