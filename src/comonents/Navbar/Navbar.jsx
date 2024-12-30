@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { LiaTimesSolid } from "react-icons/lia";
 import { SlMenu } from "react-icons/sl";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -23,6 +24,22 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const links = (
+    <>
+        <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? "g-card px-2 py-1 font-semibold text-blue-600"
+              : "font-bold text-sky-50 hover:text-blue-300"
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
+      </li>
+    </>
+  )
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -79,7 +96,7 @@ const Navbar = () => {
                   display: none;
                 }
               `}</style>
-                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+               {links}
               </ul>
             </div>
 
@@ -101,10 +118,8 @@ const Navbar = () => {
 
         {/* Navbar Center (with fixed <ul>) */}
         <div className="navbar-center max-sm:hidden">
-          <ul className="menu menu-horizontal px-1 flex justify-center items-center space-x-6 fixed top-0 left-1/2 transform -translate-x-1/2 bg-background backdrop-blur-lg bg-opacity-75 py-3 rounded-full  shadow-bottom-shadow border-b-2 border-gray-200">
-            <li>
-              <a>Item 1</a>
-            </li>
+          <ul className="text-lg menu menu-horizontal px-1 flex justify-center items-center space-x-6 fixed top-0 left-1/2 transform -translate-x-1/2 bg-background backdrop-blur-lg bg-opacity-75 py-3 rounded-full  shadow-bottom-shadow border-b-2 border-gray-200">
+            {links}
           </ul>
         </div>
 
