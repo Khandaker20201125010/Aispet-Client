@@ -7,7 +7,7 @@ const image_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
 
 const AddServices = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const axiosPublic = useAxiosPublic();
 
   const onSubmit = async (data) => {
@@ -70,10 +70,11 @@ const AddServices = () => {
           <input
             type="text"
             id="name"
-            {...register("name", { required: true })}
+            {...register("name", { required: "Service name is required" })}
             placeholder="Enter service name"
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
           />
+          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
         </div>
 
         {/* Service Description */}
@@ -86,11 +87,12 @@ const AddServices = () => {
           </label>
           <textarea
             id="description"
-            {...register("description", { required: true })}
+            {...register("description", { required: "Description is required" })}
             placeholder="Enter service description"
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
             rows="4"
           ></textarea>
+          {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
         </div>
 
         {/* Service Image */}
@@ -104,9 +106,10 @@ const AddServices = () => {
           <input
             type="file"
             id="image"
-            {...register("image", { required: true })}
+            {...register("image", { required: "Please upload an image" })}
             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
           />
+          {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
         </div>
 
         {/* Submit Button */}

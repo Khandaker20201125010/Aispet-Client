@@ -50,39 +50,36 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
-      <li className="relative group">
-      <NavLink
-        className={({ isActive }) =>
-          isActive
-            ? "g-card px-2 py-1 font-semibold text-blue-600"
-            : "font-bold text-sky-950 hover:text-blue-300"
-        }
-        to="/dashboard"
-      >
-        Dashboard
-      </NavLink>
-      {/* Dropdown Menu */}
-      <ul className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-1 py-2 rounded-lg z-10 w-40">
-        <li className="px-4 py-2 hover:bg-blue-100">
-          <NavLink
-            to="/addServices"
-            className="block text-gray-700 hover:text-blue-500"
-          >
-           Add Services
-          </NavLink>
-        </li>
-        <li className="px-4 py-2 hover:bg-blue-100">
-          <NavLink
-            to="/manageServices"
-            className="block text-gray-700 hover:text-blue-500"
-          >
-            Manage Services
-          </NavLink>
-        </li>
-       
-      </ul>
-    </li>
-      
+      <div className="flex-none">
+        <ul className="flex  menu-horizontal px-1">
+         
+          <li>
+            <details>
+              <summary className="font-bold text-sky-950 cursor-pointer">
+                Dashboard
+              </summary>
+              <ul className="bg-white shadow-md rounded-lg mt-1 p-2 w-40">
+                <li className="px-4 py-2 hover:bg-blue-100">
+                  <NavLink
+                    to="/addServices"
+                    className="block text-gray-700 hover:text-blue-500"
+                  >
+                    Add Services
+                  </NavLink>
+                </li>
+                <li className="px-4 py-2 hover:bg-blue-100">
+                  <NavLink
+                    to="/manageServices"
+                    className="block text-gray-700 hover:text-blue-500"
+                  >
+                    Manage Services
+                  </NavLink>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
     </>
   );
   return (
