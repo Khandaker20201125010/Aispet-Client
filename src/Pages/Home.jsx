@@ -1,9 +1,14 @@
 import React from 'react';
+import Banner from '../comonents/Banner/Banner';
+import Feature from '../comonents/Feature/Feature';
+import Services from '../comonents/OurServices/Services';
 
 const Home = () => {
     return (
-        <div className='bg-red-600 text-center text-7xl'>
-            this is home page
+        <div className=''>
+           <Banner></Banner>
+           <Feature></Feature>
+           <Services></Services>
         </div>
     );
 };
