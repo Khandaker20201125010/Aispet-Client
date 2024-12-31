@@ -11,7 +11,7 @@ const Services = () => {
   }
 
   return (
-    <div className="bg-gradient-to-tr from-cyan-50 via-cyan-50 to-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 min-h-screen">
+    <div className="p-20 bg-gradient-to-tr from-cyan-50 via-cyan-50 to-white min-h-screen">
       <div>
         <div className="flex justify-center mb-5 p-6">
           <h3 className="bg-purple-300 w-32 py-1 rounded-full text-center text-purple-600">
