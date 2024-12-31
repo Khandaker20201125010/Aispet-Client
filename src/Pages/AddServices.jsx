@@ -7,7 +7,12 @@ const image_hosting_token = import.meta.env.VITE_IMAGE_HOSTING_TOKEN;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
 
 const AddServices = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const axiosPublic = useAxiosPublic();
 
   const onSubmit = async (data) => {
@@ -26,8 +31,9 @@ const AddServices = () => {
         // Construct service object
         const service = {
           name: data.name,
-          image: res.data.data.display_url,
+          image: res.data.data.display_url, // Get the URL from the image hosting service
           description: data.description,
+          category: data.category,
         };
 
         // Save service to database
@@ -74,7 +80,26 @@ const AddServices = () => {
             placeholder="Enter service name"
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
           />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+          {errors.name && (
+            <p className="text-red-500 text-sm">{errors.name.message}</p>
+          )}
+        </div>
+        <div className="w-1/2">
+          <label className="form-control w-full  my-6">
+            <div className="label">
+              <span className="label-text ">Category</span>
+            </div>
+            <select
+              {...register("category")}
+              className="select select-warning w-full"
+            >
+              <option disabled value="default">
+                Select a category
+              </option>
+              <option value="popular">Popular</option>
+              <option value="regular">Regular</option>
+            </select>
+          </label>
         </div>
 
         {/* Service Description */}
@@ -87,12 +112,16 @@ const AddServices = () => {
           </label>
           <textarea
             id="description"
-            {...register("description", { required: "Description is required" })}
+            {...register("description", {
+              required: "Description is required",
+            })}
             placeholder="Enter service description"
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
             rows="4"
           ></textarea>
-          {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
+          {errors.description && (
+            <p className="text-red-500 text-sm">{errors.description.message}</p>
+          )}
         </div>
 
         {/* Service Image */}
@@ -109,7 +138,9 @@ const AddServices = () => {
             {...register("image", { required: "Please upload an image" })}
             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none"
           />
-          {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
+          {errors.image && (
+            <p className="text-red-500 text-sm">{errors.image.message}</p>
+          )}
         </div>
 
         {/* Submit Button */}

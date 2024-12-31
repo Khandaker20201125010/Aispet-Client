@@ -8,6 +8,7 @@ import AddServices from "./Pages/AddServices";
 import Services from "./comonents/OurServices/Services";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManageServices from "./Pages/ManageServices";
+import UpdateServices from "./Pages/UpdateServices";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/manageServices",
         element: <ManageServices></ManageServices>,
+      },
+      {
+        path: "/updateServices/:id",
+        element:<UpdateServices></UpdateServices>,
       },
     ],
   },
