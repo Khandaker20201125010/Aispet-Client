@@ -1,99 +1,150 @@
 import React, { useState } from "react";
 import loginsignin from "../../assets/images/login&signin.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../comonents/Hooks/useAxiosPublic";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
+import useAuth from "../../comonents/Hooks/useAuth";
+import { GrGoogle } from "react-icons/gr";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const { signIn, googleSignIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPublic = useAxiosPublic();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage("Please fill out all fields.");
-      return;
-    }
-    console.log("Logging in with", email, password);
-    setErrorMessage("");
+  const from = location.state?.from?.pathname || "/";
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch(() => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Login failed",
+          text: "Invalid email or password.",
+          showConfirmButton: true,
+        });
+      });
   };
 
-  const handleSocialLogin = (platform) => {
-    console.log(`Logging in with ${platform}`);
+  const handeleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+          photo: result.user?.photoURL,
+        };
+        axiosPublic.post("/users", userInfo).then(() => {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Login successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate(from, { replace: true });
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Google Sign-in failed",
+          showConfirmButton: true,
+        });
+      });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 p-4">
-      <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-xl transform transition-all duration-300 hover:scale-105">
-        <img
-          src={loginsignin}
-          alt="Login Illustration"
-          className="w-32 mx-auto mb-4"
-        />
-        <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">
-          Welcome Back
-        </h2>
-        {errorMessage && (
-          <div className="p-3 mb-4 text-sm text-red-600 bg-red-100 rounded-lg">
-            {errorMessage}
-          </div>
-        )}
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+    <div className="container mx-auto">
+      <div className="md:flex flex-1 ">
+        <div className="md:px-44 md:py-5">
+          <div className="m-auto w-[22.5rem] shadow-2xl rounded-lg relative">
+            <form
+              onSubmit={handleLogin}
+              className="card-body bg-transparent p-5"
             >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mt-1 text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
-              placeholder="Enter your email"
-              required
-            />
+              <h3 className="text-3xl font-bold text-center mb-4">Login</h3>
+              {/* Email Field */}
+              <div className="form-control mb-4">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  className="input input-bordered bg-transparent"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              {/* Password Field */}
+              <div className="form-control mb-6 relative">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  className="input input-bordered bg-transparent pr-10"
+                  placeholder="Enter your password"
+                  required
+                />
+                <div
+                  className="absolute inset-y-14 right-3 flex items-center cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </div>
+              </div>
+              {/* Submit Button */}
+              <input
+                type="submit"
+                className="btn bg-purple-900 w-full hover:bg-purple-600 text-white font-bold"
+                value="Login"
+              />
+            </form>
+            {/* Google Sign-In */}
+            <div className="flex px-5 justify-center mt-4">
+              <button
+                onClick={handeleGoogleSignIn}
+                className="btn bg-purple-900 w-full  hover:bg-purple-600 text-2xl text-white font-bold"
+              >
+                <GrGoogle></GrGoogle>
+              </button>
+            </div>
+            <div className="mt-4 text-sm text-center p-2 mb-2">
+              Don't have an account?{" "}
+              <Link to="/signUp" className="text-purple-600 underline">
+                Sign Up
+              </Link>
+            </div>
           </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mt-1 text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-          >
-            Login
-          </button>
-        </form>
-        <div className="my-4 text-sm text-center text-gray-600">
-          Or login with
         </div>
-        <div className="flex gap-4">
-          <button
-            onClick={() => handleSocialLogin("Google")}
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-purple-500 rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none"
-          >
-            Google
-          </button>
-        </div>
-        <div className="mt-4 text-sm text-center text-gray-600">
-          Don't have an account?{" "}
-          <a href="#" className="text-purple-700 hover:underline">
-            Sign up
-          </a>
+        <div className="m-auto">
+          <img src={loginsignin} alt="Login Illustration" />
         </div>
       </div>
     </div>
