@@ -45,32 +45,23 @@ const Login = () => {
   };
 
   const handeleGoogleSignIn = () => {
-    googleSignIn()
-      .then((result) => {
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName,
-          photo: result.user?.photoURL,
-        };
-        axiosPublic.post("/users", userInfo).then(() => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Login successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate(from, { replace: true });
-        });
-      })
-      .catch(() => {
+    googleSignIn().then((result) => {
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        photo: result.user?.photoURL,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
         Swal.fire({
           position: "center",
-          icon: "error",
-          title: "Google Sign-in failed",
-          showConfirmButton: true,
+          icon: "success",
+          title: "Login successful",
+          showConfirmButton: false,
+          timer: 1500,
         });
+        navigate(from, { replace: true });
       });
+    });
   };
 
   const togglePasswordVisibility = () => {

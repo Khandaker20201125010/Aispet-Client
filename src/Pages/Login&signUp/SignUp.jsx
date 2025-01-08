@@ -123,7 +123,7 @@ const SignUp = () => {
                 <input
                   type="file"
                   {...register("photoURL", { required: true })}
-                  className="file-input file-input-bordered file-input-[#D1D5DB] "
+                  className="file-input file-input-bordered file-input-secondary  w-full max-w-xs "
                 />
                 {errors.photoURL && (
                   <span className="text-red-700 font-bold">
