@@ -4,13 +4,25 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 
+import { Link} from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 const Navbar = () => {
+  const {user,logOut} = useAuth();
   const [click, setClick] = useState(false);
   const [isNavbarAtTop, setIsNavbarAtTop] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMenu = () => {
     setClick(false);
+  };
+
+  const handelSignOut = () => {
+    logOut()
+      .then(() => {
+        console.log("User signed out successfully");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
   };
 
   useEffect(() => {
@@ -167,7 +179,18 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="navbar-end">
-          <a className="btn">Button</a>
+         {
+          user?
+           <button onClick={handelSignOut} className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
+             Log Out
+           </button>
+          :
+           <Link to='/login'>
+             <button className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
+            Login
+           </button>
+           </Link>
+         }
         </div>
       </div>
     </div>
