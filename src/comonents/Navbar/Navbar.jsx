@@ -4,10 +4,10 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 const Navbar = () => {
-  const {user,logOut} = useAuth();
+  const { user, logOut } = useAuth();
   const [click, setClick] = useState(false);
   const [isNavbarAtTop, setIsNavbarAtTop] = useState(true);
   const handleClick = () => setClick(!click);
@@ -64,7 +64,6 @@ const Navbar = () => {
       </li>
       <div className="flex-none">
         <ul className="flex  menu-horizontal px-1">
-         
           <li>
             <details>
               <summary className="font-bold text-sky-950 cursor-pointer">
@@ -179,18 +178,20 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="navbar-end">
-         {
-          user?
-           <button onClick={handelSignOut} className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
-             Log Out
-           </button>
-          :
-           <Link to='/login'>
-             <button className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
-            Login
-           </button>
-           </Link>
-         }
+          {user ? (
+            <button
+              onClick={handelSignOut}
+              className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2  shadow-lg transition-all duration-300 ease-in-out hover:from-blue-500 hover:to-green-500 rounded-full"
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="btn bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded-full shadow-lg transition-all duration-300 ease-in-out hover:from-blue-500 hover:to-green-500">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
