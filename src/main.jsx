@@ -12,6 +12,7 @@ import UpdateServices from "./Pages/UpdateServices";
 import Login from "./Pages/Login&signUp/Login";
 import AuthProvider from "./comonents/Provider/AuthProvider";
 import SignUp from "./Pages/Login&signUp/SignUp";
+import DetailsPage from "./Pages/DetailsPage/DetailsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element:<SignUp></SignUp>,
+      },
+      {
+        path: "/details/:id",
+        element:<DetailsPage></DetailsPage>,
       },
     ],
   },
