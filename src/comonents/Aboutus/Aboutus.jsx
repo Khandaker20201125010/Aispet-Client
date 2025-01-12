@@ -2,7 +2,7 @@ import React from "react";
 import a1 from "../../assets/images/a1.png";
 const Aboutus = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center py-10 px-5 mt-10">
+    <div className="container mx-auto flex flex-col md:flex-row items-center py-10 px-5 mt-10">
       <img src={a1} alt="" />
       <div className="md:w-1/2">
         <div>

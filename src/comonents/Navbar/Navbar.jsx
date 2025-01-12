@@ -94,7 +94,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div>
+    <div className="">
       <div className="navbar bg-base-100">
         {/* Navbar Start */}
         <div className="navbar-start">

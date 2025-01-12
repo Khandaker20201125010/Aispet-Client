@@ -1,5 +1,6 @@
 import React from "react";
 import b1 from "../../assets/images/b1.png";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -15,9 +16,11 @@ const Banner = () => {
           full potential. Our mission is to transform industries, drive growth,
           and create smarter solutions for a better future.
         </p>
-        <button className="btn bg-green-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
-          Get Started
-        </button>
+        <Link to="/services">
+          <button className="btn mt-5 bg-green-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
+            Get Started
+          </button>
+        </Link>
       </div>
 
       {/* Image Section */}
