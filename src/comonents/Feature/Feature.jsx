@@ -40,7 +40,7 @@ const Feature = () => {
           </h3>
         </div>
         <div className="flex justify-center mb-8">
-          <h1 className="text-4xl font-bold">Our Featured Solutions</h1>
+          <h1 className="md:text-4xl font-bold">Our Featured Solutions</h1>
         </div>
         <p className="text-center text-gray-500 mb-10">
           Discover the solutions we provide to solve complex business challenges.
