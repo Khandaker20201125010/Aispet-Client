@@ -78,7 +78,7 @@ const Navbar = () => {
           My Interest
         </NavLink>
         {bookingServices?.length > 0 && (
-          <span className="absolute -top-1 -right-4 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+          <span className="max-sm:hidden absolute -top-1 -right-4 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
             {bookingServices.length}
           </span>
         )}
@@ -158,7 +158,7 @@ const Navbar = () => {
 
               {/* Scrollable Content with Hidden Scrollbar */}
               <ul
-                className="overflow-y-scroll p-4 space-y-6 text-center text-3xl min-h-screen bg-base-100 "
+                className="overflow-y-scroll p-4 px-10 space-y-6 text-start text-3xl min-h-screen bg-base-100 "
                 style={{
                   maxHeight: "calc(100vh - 64px)",
                   scrollbarWidth: "none" /* For Firefox */,

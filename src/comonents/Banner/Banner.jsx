@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center bg-gradient-to-r from-blue-100 to-white py-10 px-5">
+    <div className="flex flex-col md:flex-row items-center bg-gradient-to-r from-blue-100 via-sky-200 to-white py-10 px-5">
       {/* Text Section */}
       <div className="md:w-1/2 text-center md:text-left space-y-4 ">
         <h1 className="text-4xl font-bold leading-tight text-gray-800">

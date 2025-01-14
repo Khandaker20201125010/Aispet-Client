@@ -1,5 +1,6 @@
 import React from "react";
 import a1 from "../../assets/images/a1.png";
+import { Link } from "react-router-dom";
 const Aboutus = () => {
   return (
     <div className="container mx-auto flex flex-col md:flex-row items-center py-10 px-5 mt-10">
@@ -25,9 +26,11 @@ const Aboutus = () => {
             augue velit cursus nunc.Donec vitae sapien ut libero venenatis
             faucibus tempus.
           </p>
-          <button className="btn bg-green-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
+         <Link to='/discover'>
+         <button className="btn bg-green-500 text-white px-6 py-2 rounded shadow-lg hover:bg-green-600">
             Discover More
           </button>
+         </Link>
         </div>
       </div>
     </div>

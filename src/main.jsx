@@ -15,6 +15,7 @@ import SignUp from "./Pages/Login&signUp/SignUp";
 import DetailsPage from "./Pages/DetailsPage/DetailsPage";
 import Error from "./Pages/Error/Error";
 import Interest from "./comonents/Interest/Interest";
+import Discover from "./comonents/Aboutus/Discover";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element:<DetailsPage></DetailsPage>,
+      },
+      {
+        path: "/discover",
+        element:<Discover></Discover>,
       },
     ],
   },
