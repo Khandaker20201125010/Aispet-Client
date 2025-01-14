@@ -14,6 +14,7 @@ import AuthProvider from "./comonents/Provider/AuthProvider";
 import SignUp from "./Pages/Login&signUp/SignUp";
 import DetailsPage from "./Pages/DetailsPage/DetailsPage";
 import Error from "./Pages/Error/Error";
+import Interest from "./comonents/Interest/Interest";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element:<SignUp></SignUp>,
+      },
+      {
+        path: "/myInterests",
+        element:<Interest></Interest>,
       },
       {
         path: "/details/:id",

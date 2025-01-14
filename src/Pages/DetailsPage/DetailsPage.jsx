@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../comonents/Hooks/useAxiosPublic";
 import useAuth from "../../comonents/Hooks/useAuth";
 import Swal from "sweetalert2";
+import useBookingServices from "../../comonents/Hooks/useBookingServices";
 
 const DetailsPage = () => {
   const { user } = useAuth();
   const { id } = useParams();
+  const queryClient = useQueryClient();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -18,6 +20,7 @@ const DetailsPage = () => {
   const {
     data: singleServiceData = {},
     isLoading,
+    refetch,
     error,
   } = useQuery({
     queryKey: ["services", id],
@@ -26,21 +29,25 @@ const DetailsPage = () => {
       return res.data.service;
     },
   });
-  const { name, description, images,_id } = singleServiceData;
-    //addbookservices
+  const { name, description, images } = singleServiceData;
+  //addbookservices
   const AddBookServices = () => {
-    if(user && user.email){
+    if (user && user.email) {
       const bookServices = {
         serviceId: id,
         email: user.email,
         name: singleServiceData.name,
         images: singleServiceData.images,
       };
-      
+
       axiosPublic
         .post("/bookServices", bookServices)
         .then((res) => {
           if (res.data.insertedId) {
+            // Invalidate related queries after a successful booking
+            queryClient.invalidateQueries(["services", id]);
+            queryClient.invalidateQueries(["relatedServices", id]);
+
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -51,25 +58,25 @@ const DetailsPage = () => {
           }
         })
         .catch((err) => {
-          console.error("Error booking service:", err.response?.data || err.message);
+          console.error(
+            "Error booking service:",
+            err.response?.data || err.message
+          );
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Something went wrong! Please try again.",
           });
         });
-      
-
-    }
-    else{
+    } else {
       Swal.fire({
-        title: "you are not logged in",
+        title: "You are not logged in",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, login it!"
+        confirmButtonText: "Yes, login it!",
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
@@ -77,6 +84,7 @@ const DetailsPage = () => {
       });
     }
   };
+
   // Fetch related services based on category of the current service
   const {
     data: relatedServices = [],
@@ -92,8 +100,6 @@ const DetailsPage = () => {
   });
 
   if (isLoading || isLoadingRelated)
-  
-
     return (
       <div className="flex justify-center items-center h-screen bg-gray-50">
         <div className="flex items-center space-x-2">
@@ -112,18 +118,20 @@ const DetailsPage = () => {
       </div>
     );
 
-  
-
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="relative">
-        <img
-          src={images || "https://via.placeholder.com/1200x400"}
-          alt={name}
-          className="w-full h-[400px] object-cover brightness-90"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-transparent flex flex-col justify-center items-center pt-24 pb-6">
+      <div
+        className="relative h-[400px] bg-fixed bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${
+            images || "https://via.placeholder.com/1200x400"
+          })`,
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {/* Overlay for black opacity */}
+        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center pt-24 pb-6">
           <h1 className="text-white text-5xl font-extrabold uppercase tracking-wide">
             {name || "Service Name"}
           </h1>
@@ -150,7 +158,10 @@ const DetailsPage = () => {
               {description}
             </p>
             <div className="mt-8 flex justify-center lg:justify-start">
-              <button onClick={AddBookServices} className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 hover:scale-105 transition-all transform">
+              <button
+                onClick={AddBookServices}
+                className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 hover:scale-105 transition-all transform"
+              >
                 Book Service
               </button>
             </div>

@@ -6,11 +6,15 @@ import { NavLink } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useBookingServices from "../Hooks/useBookingServices";
+import { useQueryClient } from "@tanstack/react-query";
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [bookingServices, refetch] = useBookingServices();
   const [click, setClick] = useState(false);
   const [isNavbarAtTop, setIsNavbarAtTop] = useState(true);
   const handleClick = () => setClick(!click);
+  const queryClient = useQueryClient(); 
   const closeMenu = () => {
     setClick(false);
   };
@@ -62,6 +66,24 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
+      <li className="relative">
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? "g-card px-2 py-1 font-semibold text-blue-600"
+              : "font-bold text-sky-950 hover:text-blue-300"
+          }
+          to="/myInterests"
+        >
+          My Interest
+        </NavLink>
+        {bookingServices?.length > 0 && (
+          <span className="absolute -top-1 -right-4 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            {bookingServices.length}
+          </span>
+        )}
+      </li>
+
       <div className="flex-none">
         <ul className="flex  menu-horizontal px-1">
           <li>
@@ -98,7 +120,7 @@ const Navbar = () => {
       <div className="navbar bg-base-100">
         {/* Navbar Start */}
         <div className="navbar-start">
-          <div className="navbar-start md:hidden lg:hidden  z -30">
+          <div className="navbar-start md:hidden lg:hidden  z-30">
             <div className="flex mx-10 gap-5 lg:gap-10 justify-center items-center">
               {/* Burger Icon */}
               <div onClick={handleClick} className="icon-wrapper">
@@ -170,7 +192,7 @@ const Navbar = () => {
         </div>
 
         {/* Navbar Center (with fixed <ul>) */}
-        <div className="navbar-center max-sm:hidden">
+        <div className="z-30 navbar-center max-sm:hidden">
           <ul className="text-lg  menu-horizontal px-10 flex justify-center items-center space-x-6 fixed top-0 left-1/2 transform -translate-x-1/2 bg-background backdrop-blur-lg bg-opacity-75 py-3 rounded-full  shadow-bottom-shadow border-b-2 border-gray-200">
             {links}
           </ul>

@@ -6,7 +6,7 @@ import logo from "../../assets/images/logo.png";
 const Footer = () => {
   return (
     <footer
-      className=" bg-cover bg-no-repeat bg-center text-gray-600 min-h-full"
+      className=" bg-cover bg-no-repeat bg-center text-gray-600 "
       style={{ backgroundImage: `url(${f1})` }}
     >
       <div className="container mx-auto px-6 py-12">
