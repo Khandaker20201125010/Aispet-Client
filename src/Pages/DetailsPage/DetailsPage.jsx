@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../comonents/Hooks/useAxiosPublic";
+import useAuth from "../../comonents/Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const DetailsPage = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -21,7 +26,57 @@ const DetailsPage = () => {
       return res.data.service;
     },
   });
+  const { name, description, images,_id } = singleServiceData;
+    //addbookservices
+  const AddBookServices = () => {
+    if(user && user.email){
+      const bookServices = {
+        serviceId: id,
+        email: user.email,
+        name: singleServiceData.name,
+        images: singleServiceData.images,
+      };
+      
+      axiosPublic
+        .post("/bookServices", bookServices)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your booking has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((err) => {
+          console.error("Error booking service:", err.response?.data || err.message);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! Please try again.",
+          });
+        });
+      
 
+    }
+    else{
+      Swal.fire({
+        title: "you are not logged in",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, login it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
   // Fetch related services based on category of the current service
   const {
     data: relatedServices = [],
@@ -37,6 +92,8 @@ const DetailsPage = () => {
   });
 
   if (isLoading || isLoadingRelated)
+  
+
     return (
       <div className="flex justify-center items-center h-screen bg-gray-50">
         <div className="flex items-center space-x-2">
@@ -55,7 +112,7 @@ const DetailsPage = () => {
       </div>
     );
 
-  const { name, description, images } = singleServiceData;
+  
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -93,7 +150,7 @@ const DetailsPage = () => {
               {description}
             </p>
             <div className="mt-8 flex justify-center lg:justify-start">
-              <button className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 hover:scale-105 transition-all transform">
+              <button onClick={AddBookServices} className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 hover:scale-105 transition-all transform">
                 Book Service
               </button>
             </div>
@@ -125,11 +182,11 @@ const DetailsPage = () => {
                   <p className="text-sm text-gray-600 mt-2">
                     {service.description.slice(0, 100)}
                   </p>
-                 <Link to={`/details/${service.id}`}>
-                 <button className="mt-4 block text-purple-600 font-medium hover:underline">
-                    Learn More
-                  </button>
-                 </Link>
+                  <Link to={`/details/${service.id}`}>
+                    <button className="mt-4 block text-purple-600 font-medium hover:underline">
+                      Learn More
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))
