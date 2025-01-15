@@ -6,6 +6,7 @@ import useAuth from "../../comonents/Hooks/useAuth";
 import Swal from "sweetalert2";
 import useBookingServices from "../../comonents/Hooks/useBookingServices";
 
+
 const DetailsPage = () => {
   const { user } = useAuth();
   const { id } = useParams();

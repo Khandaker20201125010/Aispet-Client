@@ -6,7 +6,7 @@ const ServicesCart = ({ services }) => {
   const { id,name, images, description } = services;
 
   return (
-    <div className="relative group card shadow-md rounded-md overflow-hidden">
+    <div className="relative group card shadow-md rounded-md overflow-hidden ">
       {/* Main Content */}
       <div className="md:flex flex-grow items-center justify-between p-4 bg-white">
         <div className="p-2 gap-5">
