@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-    baseURL:'https://aispet-server-mysql-1.onrender.com'
+    baseURL:'https://aispet-server-mysql.onrender.com'
 })
 const useAxiosPublic = () => {
 

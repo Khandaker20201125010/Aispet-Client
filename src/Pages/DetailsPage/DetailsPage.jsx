@@ -12,6 +12,7 @@ const DetailsPage = () => {
   const { id } = useParams();
   const queryClient = useQueryClient();
   const axiosPublic = useAxiosPublic();
+  const [bookingServices] = useBookingServices();
   const navigate = useNavigate();
  
   useEffect(() => {
@@ -26,7 +27,7 @@ const DetailsPage = () => {
   } = useQuery({
     queryKey: ["services", id],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/services/${id}`);
+      const res = await bookingServices.get(`/services/${id}`);
       return res.data.service;
     },
   });

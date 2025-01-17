@@ -16,6 +16,7 @@ import DetailsPage from "./Pages/DetailsPage/DetailsPage";
 import Error from "./Pages/Error/Error";
 import Interest from "./comonents/Interest/Interest";
 import Discover from "./comonents/Aboutus/Discover";
+import PriveteRoutes from "./comonents/PrivetRoutes/PriveteRoutes";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -33,11 +34,11 @@ const router = createBrowserRouter([
 
       {
         path: "/addServices",
-        element: <AddServices></AddServices>,
+        element: <PriveteRoutes><AddServices></AddServices></PriveteRoutes>,
       },
       {
         path: "/manageServices",
-        element: <ManageServices></ManageServices>,
+        element: <PriveteRoutes><ManageServices></ManageServices></PriveteRoutes>,
       },
       {
         path: "/updateServices/:id",

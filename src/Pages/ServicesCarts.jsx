@@ -2,15 +2,15 @@ import React from "react";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ServicesCart = ({ services }) => {
+const ServicesCarts = ({ services }) => {
   const { id,name, images, description } = services;
 
   return (
     <div className="relative group card shadow-md rounded-md overflow-hidden ">
       {/* Main Content */}
-      <div className="md:flex flex-grow items-start justify-between p-4 bg-white">
+      <div className="md:flex flex-grow items-center justify-between p-4 bg-white">
         <div className="p-2 gap-5">
-          <div className="image-container">
+          <div className="image-container  justify-center flex ">
             <img className="services-image h-48 w-48" src={images} alt={name} />
           </div>
           <div className="mt-5">
@@ -34,4 +34,4 @@ const ServicesCart = ({ services }) => {
   );
 };
 
-export default ServicesCart;
+export default ServicesCarts;

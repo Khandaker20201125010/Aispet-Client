@@ -1,6 +1,6 @@
 import React from 'react';
-import ServicesCart from '../comonents/OurServices/ServicesCart';
 import useServices from '../comonents/Hooks/useServices';
+import ServicesCarts from './ServicesCarts';
 
 const Services = () =>  {
     const [services, refetch] = useServices();
@@ -27,11 +27,11 @@ const Services = () =>  {
             challenges.
           </p>
         </div>
-        <div className="">
+        <div className="flex justify-center text-center">
           <div className="container mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
             {Array.isArray(services) &&
               popular.map((service) => (
-                <ServicesCart key={service.id} services={service} />
+                <ServicesCarts key={service.id} services={service} />
               ))}
           </div>    
         </div>
