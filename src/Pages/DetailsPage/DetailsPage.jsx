@@ -27,7 +27,7 @@ const DetailsPage = () => {
   } = useQuery({
     queryKey: ["services", id],
     queryFn: async () => {
-      const res = await bookingServices.get(`/services/${id}`);
+      const res = await axiosPublic.get(`/services/${id}`);
       return res.data.service;
     },
   });
@@ -41,7 +41,7 @@ const DetailsPage = () => {
         name: singleServiceData.name,
         images: singleServiceData.images,
       };
-
+  
       axiosPublic
         .post("/bookServices", bookServices)
         .then((res) => {
@@ -49,7 +49,7 @@ const DetailsPage = () => {
             // Invalidate related queries after a successful booking
             queryClient.invalidateQueries(["services", id]);
             queryClient.invalidateQueries(["relatedServices", id]);
-
+  
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -71,21 +71,23 @@ const DetailsPage = () => {
           });
         });
     } else {
+      // Redirect the user to login and send them back after successful login
       Swal.fire({
-        title: "You are not logged in",
-        text: "You won't be able to revert this!",
+        title: "You need to log in",
+        text: "Please log in to book this service.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, login it!",
+        confirmButtonText: "Login Now",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/login");
+          navigate(`/login?redirect=/details/${id}`);
         }
       });
     }
   };
+  
 
   // Fetch related services based on category of the current service
   const {

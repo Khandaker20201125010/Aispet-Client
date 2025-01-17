@@ -10,12 +10,10 @@ const PriveteRoutes = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="circ h-screen">
-        <div className="load">Loading . . . </div>
-        <div className="hands"></div>
-        <div className="body"></div>
-        <div className="head">
-          <div className="eye"></div>
+      <div className="flex justify-center items-center h-screen bg-gray-50">
+        <div className="flex items-center space-x-2">
+          <div className="w-6 h-6 rounded-full bg-blue-500 animate-bounce"></div>
+          <p className="text-xl font-medium text-gray-600">Loading...</p>
         </div>
       </div>
     );
