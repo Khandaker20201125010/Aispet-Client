@@ -12,7 +12,7 @@ const Services = () =>  {
     }
   
     return (
-      <div className="bg-gradient-to-tr from-cyan-50 via-cyan-50 to-white   p-20 ">
+      <div className="bg-gradient-to-tr from-cyan-50 via-cyan-50 to-white md:p-20 max-sm:p-5">
         <div className=''>
           <div className="flex justify-center mb-5 p-6">
             <h3 className="bg-purple-300 w-32 py-1 rounded-full text-center text-purple-600">

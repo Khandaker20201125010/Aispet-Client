@@ -93,20 +93,20 @@ const Footer = () => {
           </div>
 
           {/* Address Section */}
-          <div>
+          <div className="max-sm:text-center">
             <h3 className="text-lg font-semibold mb-4">Address</h3>
             <ul className="space-y-2 text-sm">
-              <li className="flex items-start">
+              <li className="flex items-start max-sm:justify-center ">
                 <span className="mr-2">📍</span>
                 27 Division St, New York, NY 10002, USA
               </li>
-              <li className="flex items-start">
+              <li className="flex items-start  max-sm:justify-center">
                 <span className="mr-2">📧</span>
                 <a href="mailto:spet@gmail.com" className="hover:underline">
                   Aispet@gmail.com
                 </a>
               </li>
-              <li className="flex items-start">
+              <li className="flex items-start  max-sm:justify-center">
                 <span className="mr-2">📞</span>
                 <a href="tel:+321984754" className="hover:underline">
                   + (321) 984 754
@@ -114,7 +114,7 @@ const Footer = () => {
               </li>
             </ul>
             {/* Social Links */}
-            <div className="flex space-x-4 mt-4">
+            <div className="flex space-x-4 mt-4  max-sm:justify-center">
               <a href="#facebook" className="hover:text-blue-500">
                 <CiFacebook />
               </a>

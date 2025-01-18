@@ -31,7 +31,9 @@ const Services = () => {
           Aispet Solutions
         </h1>
         <div className="">
-        <p className="relative z-10 text-white text-center mt-5">Our Services aim to solve complex business challenges</p>
+          <p className="relative z-10 text-white text-center mt-5">
+            Our Services aim to solve complex business challenges
+          </p>
         </div>
       </div>
 
@@ -50,7 +52,7 @@ const Services = () => {
         </p>
       </div>
       <div className="">
-        <div className="container mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-20">
+        <div className="container mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:p-20 max-sm:p-5 ">
           {Array.isArray(services) &&
             services.map((service) => (
               <ServicesCart key={service.id} services={service} />
